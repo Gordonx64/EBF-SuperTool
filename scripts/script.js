@@ -108,11 +108,28 @@ function main(){
             equipsTable.addData(equipList);
     });
 
-    initJSONData().then(function(){
+    initJSONData()
+    .then(function(){
         equipsTable = new Tabulator('#equipsPane', {
             columns:equipsColumns
-        })
+        });
     })
+    .then(function(){
+        equipsColumns.forEach(function(element, index, array){
+            var sidebarOption = document.createElement('div');
+            sidebarOption.addEventListener('click', sidebarClickHandler);
+            sidebarOption.innerText = element.title;
+            sidebarOption.classList.add('sidebarChecked');
+            sidebarOption.dataset['table'] = 'equips';
+            sidebarOption.dataset['field'] = element.field;
+            sidebarOption.dataset['checked'] = true;
+            sidebar['equips'].appendChild(sidebarOption);
+        });
+    })
+
+}
+
+function sidebarClickHandler(){
 
 }
 
