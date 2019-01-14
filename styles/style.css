@@ -1,3 +1,26 @@
+.vCP {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.vCP::before {
+    height: 100%;
+    margin-right: -0.25em;
+    display: inline-block;
+    vertical-align: middle;
+    content: '';
+}
+
+.vertCenterChild {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.vCC {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 div#header{
     position: absolute;
     top: 0%;
@@ -94,8 +117,19 @@ div#summonsSidebar {
 }
 
 div#equipsSidebar {
-    background-color: rgb(133, 94, 193);
+    background-color: rgb(206, 206, 206);
+    display:flex;
+    flex-direction:column;
+/*     justify-content:flex-start; */
+    overflow:auto;
 }
+
+div#equipsSidebar > div {
+    height:4%;
+    padding-left:10%;
+
+}
+
 
 div#bestiarySidebar {
     background-color: rgb(255, 229, 229);
@@ -132,9 +166,17 @@ div#summonsPane {
 }
 
 div#equipsPane {
-    background-color: rgb(68, 167, 86);
+    /*background-color: rgb(68, 167, 86);*/
 }
 
 div#bestiaryPane {
     background-color: rgb(133, 94, 193);
+}
+
+div.sidebarChecked {
+    background-color:rgba(0, 0, 0, 0.25);
+}
+
+div.sidebarUnchecked {
+    background-color:rgba(0, 0, 0, 0);
 }

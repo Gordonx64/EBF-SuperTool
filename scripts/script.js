@@ -14,6 +14,7 @@ var maxLevelMutatorParams = function(value, data, type, component){
     return {maxLevels: data.maxLevels};
 }
 
+var equipsTableInitialized = false;
 var equipsTable;
 var equipsColumns = [
                 //{title:'', field:'', sorter:'', mutator:maxLevelMutator},
@@ -105,7 +106,11 @@ function main(){
             }
             openGlass = 'equips';
             showGlass();
-            equipsTable.addData(equipList);
+            if (!equipsTableInitialized){
+                equipsTable.addData(equipList);
+                equipsTableInitialized = true;
+            }
+            
     });
 
     initJSONData()
@@ -120,6 +125,7 @@ function main(){
             sidebarOption.addEventListener('click', sidebarClickHandler);
             sidebarOption.innerText = element.title;
             sidebarOption.classList.add('sidebarChecked');
+            sidebarOption.classList.add('vCP');
             sidebarOption.dataset['table'] = 'equips';
             sidebarOption.dataset['field'] = element.field;
             sidebarOption.dataset['checked'] = true;
@@ -129,8 +135,21 @@ function main(){
 
 }
 
-function sidebarClickHandler(){
-
+function sidebarClickHandler(event){
+    var element = event.target;
+    switch(element.dataset.table){
+        case 'equips':
+            if (element.classList.contains('sidebarChecked')){
+                equipsTable.hideColumn(element.dataset.field);
+                element.classList.remove('sidebarChecked');
+                element.classList.add('sidebarUnchecked');
+            } else {
+                equipsTable.showColumn(element.dataset.field);
+                element.classList.add('sidebarChecked');
+                element.classList.remove('sidebarUnchecked');
+            }
+            break;
+    }
 }
 
 function hideOldGlass(){
