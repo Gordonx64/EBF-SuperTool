@@ -21,22 +21,33 @@ var equipsTable;
 var equipsColumns = [
                 //{title:'', field:'', sorter:'', mutator:maxLevelMutator},
                 {title:'Name', field:'SID', sorter:'string'},
-                {title:'Type', field:'type', sorter:'string'},
+                {title:'Type', field:'type', sorter:'string', width: 150, headerFilter: 'select', headerFilterParams:{values:true, showListOnEmpty:true}},
                 {title:'Element', field:'element', sorter:'string'},
-                {title:'Boosts', field:'boost', sorter:'string'},
-                {title:'Inflicted Status', field:'inflictStatusEffect', sorter:'string'},
+                {title:'Boosts', field:'boost', sorter:'string', width: 150, headerFilter: 'select', headerFilterParams:{values:true, allowEmpty:true}},
+                
+                {title:'Inflicted Status', field:'inflictStatusEffect', sorter:'string', width: 150, headerFilter: 'select', headerFilterParams:{values:true}},
                 {title:'Amount', field:'inflictStatusDegree', sorter:'number', mutator:maxLevelMutator},
                 {title:'Chance', field:'inflictStatusChance', sorter:'number', mutator:maxLevelMutator},
-                {title:'Debuff', field:'buffEffect', sorter:'string'},
+                
+                {title:'Debuff', field:'buffEffect', sorter:'string', width: 150, headerFilter: 'select', headerFilterParams:{values:true}},
                 {title:'Amount', field:'buffDegree', sorter:'number', mutator:maxLevelMutator},
                 {title:'Chance', field:'buffChance', sorter:'number', mutator:maxLevelMutator},
+
+                {title:'Player Status', field:'playerStatus', sorter:'string', width: 150, headerFilter: 'select', headerFilterParams:{values:true}},
+                {title:'Amount', field:'playerStatusAmt', sorter:'number'},
+                {title:'Chance', field:'playerStatusChance', sorter:'number'},
+
                 {title:'Counters With', field:'counter', sorter:'string'},
+
                 {title:'Casts', field:'cast', sorter:'string'},
                 {title:'Chance', field:'castChance', sorter:'number'},
+
                 {title:'Defend Buff', field:'defendBuff', sorter:'string'},
                 {title:'Amount', field:'defendBuffAmt', sorter:'number'},
+
                 {title:'Defend Status', field:'defendStatus', sorter:'string'},
                 {title:'Amount', field:'defendStatusAmt', sorter:'number'},
+
                 {title:'Boost Buffs', field:'boostBuffs', sorter:'string'},
                 {title:'Boost Debuffs', field:'boostDebuffs', sorter:'string'},
                 {title:'Boost Catch', field:'boostCatch', sorter:'string'},
@@ -120,7 +131,8 @@ function main(){
         equipsTable = new Tabulator('#equipsPane', {
             columns:equipsColumns,
             layoutColumnsOnNewData:true,
-            layout:'fitData'
+            layout:'fitData',
+            footerElement:'<button onclick="equipsTable.clearFilter(true);">Clear All Filters</button>'
         });
     })
     .then(function(){
@@ -193,7 +205,7 @@ function toCamelCase(string, delim){
         stringList = string.split(delim);
     }
     for (var i = 0; i < stringList.length; i++){
-        stringList[i] = stringList[i][0] + stringList[i].substr(1).toLowerCase();
+        stringList[i] = stringList[i][0].toUpperCase() + stringList[i].substr(1).toLowerCase();
     }
     return stringList.join(' ');
 }

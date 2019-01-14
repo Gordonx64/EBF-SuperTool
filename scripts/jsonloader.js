@@ -151,7 +151,7 @@ function EquipProto(params) {
                         this.scare = params.specials[i][1];
                         break;
                     case "Equip.BOOST":
-                        this.boost = params.specials[i][1] == "Element.NONE" ? none : toCamelCase(params.specials[i][1].replace("Element.", ""));
+                        this.boost = params.specials[i][1] == "Element.NONE" ? 'Non-Elemental' : toCamelCase(params.specials[i][1].replace("Element.", ""));
                         break;
                     case "Equip.BOOST_BUFFS":
                         this.boostBuffs = yes;
