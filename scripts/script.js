@@ -42,6 +42,9 @@ var equipsColumns = [
                 {title:'Casts', field:'cast', sorter:'string'},
                 {title:'Chance', field:'castChance', sorter:'number'},
 
+                {title:'Summons', field:'summon', sorter:'string'},
+                {title:'Chance', field:'summonChance', sorter:'number'},
+
                 {title:'Defend Buff', field:'defendBuff', sorter:'string'},
                 {title:'Amount', field:'defendBuffAmt', sorter:'number'},
 
