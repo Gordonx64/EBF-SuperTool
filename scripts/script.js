@@ -14,6 +14,8 @@ var maxLevelMutatorParams = function(value, data, type, component){
     return {maxLevels: data.maxLevels};
 }
 
+
+
 var equipsTableInitialized = false;
 var equipsTable;
 var equipsColumns = [
@@ -107,7 +109,7 @@ function main(){
             openGlass = 'equips';
             showGlass();
             if (!equipsTableInitialized){
-                equipsTable.addData(equipList);
+                equipsTable.addData(equipList).then(function(){equipsTable.redraw(true);});
                 equipsTableInitialized = true;
             }
             
@@ -116,7 +118,9 @@ function main(){
     initJSONData()
     .then(function(){
         equipsTable = new Tabulator('#equipsPane', {
-            columns:equipsColumns
+            columns:equipsColumns,
+            layoutColumnsOnNewData:true,
+            layout:'fitData'
         });
     })
     .then(function(){
@@ -177,6 +181,22 @@ function exists(obj){
 	return obj != null && obj != undefined && obj !== '';
 }
 
+
+/**
+Function that takes in a string, and if delimitted, splits it into its seperate words and capitalizes them
+    delim - optional - if omitted, defaults to '_'
+*/
+function toCamelCase(string, delim){
+    if (!exists(delim)) delim = '_';
+    var stringList = [string];
+    if (string.indexOf(delim) > 0){
+        stringList = string.split(delim);
+    }
+    for (var i = 0; i < stringList.length; i++){
+        stringList[i] = stringList[i][0] + stringList[i].substr(1).toLowerCase();
+    }
+    return stringList.join(' ');
+}
 
 /* Page Ready Initializer */
 window.addEventListener('DOMContentLoaded', main);

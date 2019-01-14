@@ -42,8 +42,8 @@ function checkArray(arr, maxLevels){
 
 function EquipProto(params) {
     this.SID = params.SID;
-    this.type = params.type.replace(/.*\./, "");
-    if (this.type != 'FLAIR') { this.maxLevels = 5; } else { this.maxLevels = 3; }
+    this.type = toCamelCase(params.type.replace(/.*\./, ""), '_');
+    if (this.type != 'Flair') { this.maxLevels = 5; } else { this.maxLevels = 3; }
     this.icon = params.icon;
     this.skin = params.skin;
     this.map = params.map;
@@ -90,14 +90,14 @@ function EquipProto(params) {
     var yes = "Yes";
     var none = "None";
 
-    this.element = exists(params.element) ? (params.element == "Element.NONE" ? none : params.element.replace("Element.", "")) : none;
+    this.element = exists(params.element) ? (params.element == "Element.NONE" ? none : toCamelCase(params.element.replace("Element.", ""), '_')) : none;
     this.elementDegree = null; /*only used on oakstaff and eagleeye*/
 
-    this.inflictStatusEffect = exists(params.statusEffect) ? (params.statusEffect == "Status.NONE" ? none : params.statusEffect.replace("Status.", "")) : none;
+    this.inflictStatusEffect = exists(params.statusEffect) ? (params.statusEffect == "Status.NONE" ? none : toCamelCase(params.statusEffect.replace("Status.", ""), '_')) : none;
     this.inflictStatusChance = checkArray(params.statusChance, this.maxLevels); /*changes with level*/
     this.inflictStatusDegree = checkArray(params.statusDegree, this.maxLevels); /*changes with level*/
 
-    this.buffEffect = exists(params.buffEffect) ? (params.buffEffect == "Stats.NONE" ? none : params.buffEffect.replace("Stats.", "")) : none;
+    this.buffEffect = exists(params.buffEffect) ? (params.buffEffect == "Stats.NONE" ? none : toCamelCase(params.buffEffect.replace("Stats.", ""), '_')) : none;
     this.buffChance = checkArray(params.buffChance, this.maxLevels); /*changes with level*/
     this.buffDegree = checkArray(params.buffDegree, this.maxLevels); /*changes with level*/
 
@@ -151,7 +151,7 @@ function EquipProto(params) {
                         this.scare = params.specials[i][1];
                         break;
                     case "Equip.BOOST":
-                        this.boost = params.specials[i][1] == "Element.NONE" ? none : params.specials[i][1].replace("Element.", "");
+                        this.boost = params.specials[i][1] == "Element.NONE" ? none : toCamelCase(params.specials[i][1].replace("Element.", ""));
                         break;
                     case "Equip.BOOST_BUFFS":
                         this.boostBuffs = yes;
@@ -182,11 +182,11 @@ function EquipProto(params) {
                         this.counter = params.specials[i][1];
                         break;
                     case "Equip.DEFEND_BUFF":
-                        this.defendBuff = params.specials[i][1].replace("Stats.", "");
+                        this.defendBuff = toCamelCase(params.specials[i][1].replace("Stats.", ""));
                         this.defendBuffAmt = params.specials[i][2];
                         break;
                     case "Equip.DEFEND_STATUS":
-                        this.defendStatus = params.specials[i][1].replace("Status.", "");
+                        this.defendStatus = toCamelCase(params.specials[i][1].replace("Status.", ""));
                         this.defendStatusAmt = params.specials[i][2];
                         break;
                     case "Equip.DRAIN_HP":
@@ -208,7 +208,7 @@ function EquipProto(params) {
                         this.randomBuffs = yes;
                         break;
                     case "Equip.STATUS":
-                        this.playerStatus = params.specials[i][1].replace("Status.", "");
+                        this.playerStatus = toCamelCase(params.specials[i][1].replace("Status.", ""));
                         this.playerStatusAmt = params.specials[i][2];
                         this.playerStatusChance = params.specials[i][3];
                         break;
